@@ -1,0 +1,96 @@
+package kalkulator1;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Solution {
+    public static void arabToRom(String i, int last) {
+        if ((last/100) == 1){
+            i += "C";
+            last = last - 100;
+        }if (last/50 == 1){
+            i += "L";
+            last = last - 50;
+        }while (last/10 >= 1){
+            i += "X";
+            last -= 10;
+        } if (last/9 == 1){
+            i += "IX";
+            last -= 9;
+        } if (last/8 == 1){
+            i += "VIII";
+            last -= 8;
+        } if (last/7 == 1){
+            i += "VII";
+            last -= 7;
+        } if (last/6 == 1){
+            i += "VI";
+            last -= 6;
+        } if (last/5 == 1){
+            i += "V";
+            last -= 5;
+        } if (last/4 == 1){
+            i += "IV";
+            last -= 4;
+        } if (last/3 == 1){
+            i += "III";
+            last -= 3;
+        } if (last/2 == 1){
+            i += "II";
+            last -= 2;
+        } if (last == 1){
+            i += "I";
+        }
+        System.out.println(i);
+    }
+    public static void main(String[] args) {
+        Scanner console = new Scanner(System.in);
+        String fNum = console.next();
+        String b = console.next();       // считывает знаки
+        String sNum = console.next();
+        String i = new String();
+        if ((fNum.toLowerCase().contains("i") || fNum.toLowerCase().contains("v")
+                || fNum.toLowerCase().contains("x")) && (sNum.toLowerCase().contains("i")
+                || sNum.toLowerCase().contains("v") || sNum.toLowerCase().contains("x")))
+        {
+            String [] roman = new String[]{"I","II","III","IV","V","VI","VII", "VIII","IX","X"};
+            int fRom = Arrays.binarySearch(roman, fNum) + 1;
+            int sRom = Arrays.binarySearch(roman, sNum) + 1;
+            if (fNum.contains("IX")){
+                fRom = 9;
+            }
+            if(sNum.contains("IX")){
+                sRom = 9;
+            }
+            if ((0 < fRom) && (fRom <= 10) && (0 < sRom) && (sRom <= 10)) {//обозначаем пределы
+                if (b.contains("+")) {
+                    int last = fRom + sRom;
+                    arabToRom(i, last);
+                } else if ((b.contains("-")) && (fRom > sRom)) {
+                    int last = fRom - sRom;
+                    arabToRom(i, last);
+                } else if (b.contains("/")) {
+                    int last = fRom / sRom;
+                    arabToRom(i, last);
+                } else if (b.contains("*")) {
+                    int last = fRom * sRom;
+                    arabToRom(i, last);
+                }
+            }
+        } else {
+            int a = Integer.parseInt(fNum);
+            int c = Integer.parseInt(sNum);
+            if ((0 < a) && (a <= 10) && (0 < c) && (c <= 10)) {  //обозначаем пределы
+                if (b.contains("+")) {
+                    System.out.println(a + c);
+                } else if (b.contains("-")) {
+                    System.out.println(a - c);
+                } else if (b.contains("/")) {
+                    System.out.println(a / c);
+                } else if (b.contains("*")) {
+                    System.out.println(a * c);
+                }
+            }
+        }
+    }
+}
