@@ -1,0 +1,61 @@
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+class NumberCompressorTest {
+
+    @Test
+    void shouldRemoveConsecutiveDuplicates() {
+        int[] input = {10, 10, 20, 30, 30, 30, 40};
+        int[] expected = {10, 20, 30, 40};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldHandleValueChangesCorrectly() {
+        int[] input = {5, 5, 3, 3, 5};
+        int[] expected = {5, 3, 5};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldReturnSameArrayIfNoConsecutiveDuplicates() {
+        int[] input = {1, 2, 3, 4, 5};
+        int[] expected = {1, 2, 3, 4, 5};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldHandleSingleElementArray() {
+        int[] input = {99};
+        int[] expected = {99};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldHandleEmptyArray() {
+        int[] input = {};
+        int[] expected = {};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldHandleNegativeValues() {
+        int[] input = {-2, -2, -1, -1, -2};
+        int[] expected = {-2, -1, -2};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(input));
+    }
+
+    @Test
+    void shouldHandleNullInputSafely() {
+        int[] expected = {};
+
+        assertArrayEquals(expected, NumberCompressor.compressNumbers(null));
+    }
+}
